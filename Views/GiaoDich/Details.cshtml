@@ -1,0 +1,57 @@
+@model GiaoDich
+@{
+    ViewData["Title"] = "Chi tiết giao dịch";
+}
+
+<h2><i class="fas fa-info-circle"></i> Chi tiết giao dịch</h2>
+<hr />
+
+<div class="card" style="max-width: 600px;">
+    <div class="card-header @(Model.DanhMuc.LoaiDanhMuc == "ThuNhap" ? "bg-success" : "bg-danger") text-white">
+        <strong>@Model.TenGiaoDich</strong>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-4">Mã giao dịch:</dt>
+            <dd class="col-sm-8">@Model.MaGiaoDich</dd>
+
+            <dt class="col-sm-4">Tên giao dịch:</dt>
+            <dd class="col-sm-8">@Model.TenGiaoDich</dd>
+
+            <dt class="col-sm-4">Số tiền:</dt>
+            <dd class="col-sm-8">
+                <span class="font-weight-bold @(Model.DanhMuc.LoaiDanhMuc == "ThuNhap" ? "text-success" : "text-danger")">
+                    @(Model.DanhMuc.LoaiDanhMuc == "ThuNhap" ? "+" : "-")@Model.SoTien.ToString("N0") đ
+                </span>
+            </dd>
+
+            <dt class="col-sm-4">Ngày giao dịch:</dt>
+            <dd class="col-sm-8">@Model.NgayGiaoDich.ToString("dd/MM/yyyy")</dd>
+
+            <dt class="col-sm-4">Danh mục:</dt>
+            <dd class="col-sm-8">@Model.DanhMuc.TenDanhMuc</dd>
+
+            <dt class="col-sm-4">Loại:</dt>
+            <dd class="col-sm-8">
+                <span class="badge @(Model.DanhMuc.LoaiDanhMuc == "ThuNhap" ? "badge-success" : "badge-danger")">
+                    @(Model.DanhMuc.LoaiDanhMuc == "ThuNhap" ? "Thu nhập" : "Chi tiêu")
+                </span>
+            </dd>
+
+            <dt class="col-sm-4">Ghi chú:</dt>
+            <dd class="col-sm-8">@(Model.GhiChu ?? "Không có")</dd>
+
+            <dt class="col-sm-4">Ngày tạo:</dt>
+            <dd class="col-sm-8">@Model.NgayTao.ToString("dd/MM/yyyy HH:mm")</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model.MaGiaoDich" class="btn btn-warning">
+        <i class="fas fa-edit"></i> Sửa
+    </a>
+    <a asp-action="Index" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Quay lại
+    </a>
+</div>

@@ -1,0 +1,56 @@
+@model List<DanhMuc>
+@{
+    ViewData["Title"] = "Danh mục";
+}
+
+<h2><i class="fas fa-list"></i> Quản lý danh mục</h2>
+<hr />
+
+<a asp-action="Create" class="btn btn-primary mb-3">
+    <i class="fas fa-plus"></i> Thêm danh mục
+</a>
+
+<table class="table table-bordered table-striped table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>STT</th>
+            <th>Tên danh mục</th>
+            <th>Loại</th>
+            <th>Mô tả</th>
+            <th style="width: 200px;">Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            int stt = 1;
+            @foreach (var dm in Model)
+            {
+                <tr>
+                    <td>@(stt++)</td>
+                    <td>@dm.TenDanhMuc</td>
+                    <td>
+                        <span class="badge @(dm.LoaiDanhMuc == "ThuNhap" ? "badge-success" : "badge-danger")">
+                            @(dm.LoaiDanhMuc == "ThuNhap" ? "Thu nhập" : "Chi tiêu")
+                        </span>
+                    </td>
+                    <td>@dm.MoTa</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@dm.MaDanhMuc" class="btn btn-sm btn-warning">
+                            <i class="fas fa-edit"></i> Sửa
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@dm.MaDanhMuc" class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash"></i> Xóa
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center text-muted">Chưa có danh mục nào.</td>
+            </tr>
+        }
+    </tbody>
+</table>

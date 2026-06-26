@@ -1,0 +1,166 @@
+@model List<GiaoDich>
+@{
+    ViewData["Title"] = "Giao dịch";
+}
+
+<h2><i class="fas fa-exchange-alt"></i> Quản lý giao dịch</h2>
+<hr />
+
+<!-- Form tìm kiếm -->
+<div class="card mb-3">
+    <div class="card-header bg-info text-white">
+        <i class="fas fa-search"></i> Tìm kiếm giao dịch
+    </div>
+    <div class="card-body">
+        <form method="get" asp-action="Index">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Từ khóa</label>
+                        <input type="text" name="tuKhoa" value="@ViewBag.TuKhoa" class="form-control" placeholder="Tìm theo tên..." />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Danh mục</label>
+                        <select name="maDanhMuc" class="form-control">
+                            <option value="">-- Tất cả --</option>
+                            @foreach (var dm in (List<DanhMuc>)ViewBag.DanhSachDanhMuc)
+                            {
+                                var isSelected = ViewBag.MaDanhMuc != null && (int?)ViewBag.MaDanhMuc == dm.MaDanhMuc;
+                                var loaiText = dm.LoaiDanhMuc == "ThuNhap" ? "Thu" : "Chi";
+                                if (isSelected)
+                                {
+                                    @:<option value="@dm.MaDanhMuc" selected>@dm.TenDanhMuc (@loaiText)</option>
+                                }
+                                else
+                                {
+                                    @:<option value="@dm.MaDanhMuc">@dm.TenDanhMuc (@loaiText)</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Từ ngày</label>
+                        <input type="date" name="tuNgay" value="@ViewBag.TuNgay" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Đến ngày</label>
+                        <input type="date" name="denNgay" value="@ViewBag.DenNgay" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Loại</label>
+                        <select name="loaiGiaoDich" class="form-control">
+                            <option value="">-- Tất cả --</option>
+                            @if (ViewBag.LoaiGiaoDich == "ThuNhap")
+                            {
+                                @:<option value="ThuNhap" selected>Thu nhập</option>
+                                @:<option value="ChiTieu">Chi tiêu</option>
+                            }
+                            else if (ViewBag.LoaiGiaoDich == "ChiTieu")
+                            {
+                                @:<option value="ThuNhap">Thu nhập</option>
+                                @:<option value="ChiTieu" selected>Chi tiêu</option>
+                            }
+                            else
+                            {
+                                @:<option value="ThuNhap">Thu nhập</option>
+                                @:<option value="ChiTieu">Chi tiêu</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-info">
+                <i class="fas fa-search"></i> Tìm kiếm
+            </button>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="fas fa-redo"></i> Đặt lại
+            </a>
+        </form>
+    </div>
+</div>
+
+<!-- Nút thêm + thông tin -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Thêm giao dịch
+    </a>
+    <span class="text-muted">Tìm thấy <strong>@ViewBag.TongSo</strong> giao dịch</span>
+</div>
+
+<!-- Bảng giao dịch -->
+<table class="table table-bordered table-striped table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>STT</th>
+            <th>Tên giao dịch</th>
+            <th>Số tiền</th>
+            <th>Ngày</th>
+            <th>Danh mục</th>
+            <th>Loại</th>
+            <th style="width: 250px;">Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            int stt = ((int)ViewBag.TrangHienTai - 1) * 10 + 1;
+            @foreach (var gd in Model)
+            {
+                <tr>
+                    <td>@(stt++)</td>
+                    <td>@gd.TenGiaoDich</td>
+                    <td class="@(gd.DanhMuc.LoaiDanhMuc == "ThuNhap" ? "text-success" : "text-danger") font-weight-bold">
+                        @(gd.DanhMuc.LoaiDanhMuc == "ThuNhap" ? "+" : "-")@gd.SoTien.ToString("N0") đ
+                    </td>
+                    <td>@gd.NgayGiaoDich.ToString("dd/MM/yyyy")</td>
+                    <td>@gd.DanhMuc.TenDanhMuc</td>
+                    <td>
+                        <span class="badge @(gd.DanhMuc.LoaiDanhMuc == "ThuNhap" ? "badge-success" : "badge-danger")">
+                            @(gd.DanhMuc.LoaiDanhMuc == "ThuNhap" ? "Thu" : "Chi")
+                        </span>
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@gd.MaGiaoDich" class="btn btn-sm btn-info">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                        <a asp-action="Edit" asp-route-id="@gd.MaGiaoDich" class="btn btn-sm btn-warning">
+                            <i class="fas fa-edit"></i> Sửa
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@gd.MaGiaoDich" class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash"></i> Xóa
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="7" class="text-center text-muted">Không tìm thấy giao dịch nào.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Phân trang -->
+@if ((int)ViewBag.TongTrang > 1)
+{
+    <nav>
+        <ul class="pagination justify-content-center">
+            @for (int i = 1; i <= (int)ViewBag.TongTrang; i++)
+            {
+                <li class="page-item @(i == (int)ViewBag.TrangHienTai ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { page = i, tuKhoa = ViewBag.TuKhoa, maDanhMuc = ViewBag.MaDanhMuc, tuNgay = ViewBag.TuNgay, denNgay = ViewBag.DenNgay, loaiGiaoDich = ViewBag.LoaiGiaoDich })">@i</a>
+                </li>
+            }
+        </ul>
+    </nav>
+}

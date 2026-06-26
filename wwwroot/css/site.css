@@ -1,0 +1,55 @@
+/* site.css - Quản Lý Chi Tiêu Cá Nhân */
+
+body {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    background-color: #f5f5f5;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.card {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.card-header {
+    font-weight: bold;
+}
+
+.footer {
+    border-top: 1px solid #dee2e6;
+}
+
+table th {
+    white-space: nowrap;
+}
+
+.btn {
+    margin-right: 3px;
+}
+
+.form-inline .form-control {
+    margin-bottom: 5px;
+}
+
+h2 {
+    color: #333;
+    font-size: 24px;
+}
+
+.badge {
+    font-size: 12px;
+}
+
+/* Phân trang */
+.pagination .page-link {
+    color: #007bff;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+}
