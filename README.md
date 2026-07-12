@@ -3,6 +3,7 @@
 ## Thông tin sinh viên
 - **Họ tên**: Nguyễn Minh Hoàng
 - **Mã lớp**: DK25TTC1
+- **Mã số sinh viên**: 170125053
 - **GVHD**: TS. Nguyễn Nhứt Lam
 - **Repository**: ASPNET-DK25TTC1-nguyenminhhoang-QuanLyChiTieu
 
