@@ -59,7 +59,7 @@ QuanLyChiTieu/
    ```
    dotnet run
    ```
-5. Truy cập ứng dụng tại: `https://localhost:xxxx`
+5. Truy cập ứng dụng tại: `http://localhost:5062`
 
 ## Liên hệ
 - Email: hoangnm200896@tvu-onschool.edu.vn
