@@ -45,7 +45,7 @@ QuanLyChiTieu/
 ## Hướng dẫn cài đặt và chạy chương trình
 1. Clone repository:
    ```
-   git clone [link-repo]
+   git clone [https://github.com/hoangnm200896-cloud/ASPNET-DK25TTC1-nguyenminhhoang-QuanLyChiTieu.git]
    ```
 2. Di chuyển vào thư mục dự án:
    ```
