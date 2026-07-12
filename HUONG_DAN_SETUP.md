@@ -1,9 +1,3 @@
-# Hướng dẫn thiết lập GitHub cho đồ án (làm ngay hôm nay)
-
-**Tình trạng hiện tại**: Đang là tuần 3 (06/07 - 12/07/2026), code đã làm được từ
-tuần 1 (22/06/2026) nhưng chưa hề tạo repo/commit. Hướng dẫn dưới đây giúp bạn
-thiết lập repo và "dựng" lại lịch sử commit đúng với thời điểm bạn thực sự làm
-việc, thay vì để tất cả dồn vào 1 ngày hôm nay.
 
 ## Bước 1: Tạo .gitignore
 Trong thư mục gốc project (ngang hàng với QuanLyChiTieu.csproj), tạo file `.gitignore`:
