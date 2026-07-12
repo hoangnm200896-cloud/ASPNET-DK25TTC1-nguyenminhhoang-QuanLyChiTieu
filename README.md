@@ -3,7 +3,7 @@
 ## Thông tin sinh viên
 - **Họ tên**: Nguyễn Minh Hoàng
 - **Mã lớp**: DK25TTC1
-- **GVHD**: [Tên giảng viên hướng dẫn]
+- **GVHD**: TS. Nguyễn Nhứt Lam
 - **Repository**: ASPNET-DK25TTC1-nguyenminhhoang-QuanLyChiTieu
 
 ## Giới thiệu đề tài
@@ -13,13 +13,12 @@ cho phép người dùng ghi nhận, phân loại và theo dõi các khoản thu
 ## Mục tiêu
 - Xây dựng hệ thống quản lý chi tiêu với các chức năng CRUD cơ bản
 - Áp dụng mô hình MVC và Entity Framework Core để làm việc với dữ liệu
-- [Bổ sung thêm mục tiêu cụ thể của bạn ở đây]
+
 
 ## Công nghệ sử dụng
 - ASP.NET Core MVC (.NET 8)
 - Entity Framework Core
 - SQLite (QuanLyChiTieu.db)
-- [Bổ sung công nghệ khác nếu có, ví dụ Bootstrap, jQuery...]
 
 ## Cấu trúc thư mục dự án
 ```
@@ -42,8 +41,6 @@ QuanLyChiTieu/
 - [ ] Thống kê chi tiêu theo tháng/danh mục
 - [ ] Giao diện responsive
 
-## Chức năng đang phát triển
-- [Liệt kê các chức năng đang làm dở]
 
 ## Hướng dẫn cài đặt và chạy chương trình
 1. Clone repository:
@@ -65,5 +62,5 @@ QuanLyChiTieu/
 5. Truy cập ứng dụng tại: `https://localhost:xxxx`
 
 ## Liên hệ
-- Email: [email của bạn]
-- SĐT: [số điện thoại của bạn]
+- Email: hoangnm200896@tvu-onschool.edu.vn
+- SĐT: 0904200896
