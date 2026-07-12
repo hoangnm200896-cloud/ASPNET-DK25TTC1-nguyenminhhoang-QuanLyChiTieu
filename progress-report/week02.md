@@ -5,15 +5,18 @@
 **Mã lớp**: DK25TTC1
 
 ## Công việc đã thực hiện
-- [Điền các phần code thực tế đã làm trong khoảng thời gian này, ví dụ: xây dựng
-  Model, Controller, View nào]
-- Lưu ý: tuần này chưa kịp ghi báo cáo tiến độ và commit đúng hạn, báo cáo này
-  được bổ sung lại vào tuần 3 dựa trên phần việc thực tế đã hoàn thành.
+- Xây dựng DanhMucController với đầy đủ chức năng CRUD (thêm, sửa, xóa, xem danh sách danh mục)
+- Xây dựng GiaoDichController với đầy đủ chức năng CRUD giao dịch thu chi, liên kết tới danh mục tương ứng
+- Thiết kế các View tương ứng theo mô hình Razor View (Index, Create, Edit, Delete, Details) cho cả Danh mục và Giao dịch
+- Xây dựng DashboardViewModel để tổng hợp dữ liệu hiển thị: tổng thu nhập, tổng chi tiêu, số dư, chi tiêu theo danh mục, danh sách giao dịch gần nhất
+- Áp dụng validate dữ liệu đầu vào cơ bản (bắt buộc nhập tên giao dịch, số tiền, ngày)
+- Kiểm thử thủ công các chức năng thêm/sửa/xóa để đảm bảo dữ liệu lưu đúng vào SQLite
 
 ## Khó khăn gặp phải
-- Chưa duy trì được thói quen ghi báo cáo và commit hàng tuần đều đặn.
-- [Khó khăn kỹ thuật khác nếu có]
+- Tuần này tiến độ báo cáo và commit bị gián đoạn do bận công việc cá nhân, chưa ghi báo cáo và commit đúng lịch trình hàng tuần như dự kiến
+- Gặp một số warning liên quan đến non-nullable property khi build (CS8618), đã ghi nhận để xử lý ở giai đoạn hoàn thiện sau
 
 ## Kế hoạch tuần tới
-- Duy trì commit và báo cáo tiến độ đều đặn hàng tuần từ tuần 3 trở đi.
-- [Chức năng dự kiến làm tiếp]
+- Thiết lập repository GitHub chính thức, bổ sung đầy đủ lịch sử commit và báo cáo tiến độ còn thiếu
+- Duy trì commit và báo cáo tiến độ đều đặn hàng tuần từ tuần 3 trở đi
+- Rà soát và tinh chỉnh giao diện Dashboard, kiểm tra lại luồng dữ liệu hiển thị
