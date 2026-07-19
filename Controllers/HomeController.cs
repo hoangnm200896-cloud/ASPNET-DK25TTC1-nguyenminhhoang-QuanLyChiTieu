@@ -15,15 +15,16 @@ namespace QuanLyChiTieu.Controllers
         }
 
         // Trang chủ - Dashboard
-        public IActionResult Index()
+        // Cho phép chọn xem theo tháng/năm bất kỳ, mặc định là tháng/năm hiện tại
+        public IActionResult Index(int? thang, int? nam)
         {
-            var thang = DateTime.Now.Month;
-            var nam = DateTime.Now.Year;
+            var thangXem = (thang.HasValue && thang.Value >= 1 && thang.Value <= 12) ? thang.Value : DateTime.Now.Month;
+            var namXem = (nam.HasValue && nam.Value > 0) ? nam.Value : DateTime.Now.Year;
 
-            // Lấy giao dịch trong tháng hiện tại
+            // Lấy giao dịch trong tháng được chọn
             var giaoDichThang = _context.GiaoDichs
                 .Include(g => g.DanhMuc)
-                .Where(g => g.NgayGiaoDich.Month == thang && g.NgayGiaoDich.Year == nam)
+                .Where(g => g.NgayGiaoDich.Month == thangXem && g.NgayGiaoDich.Year == namXem)
                 .ToList();
 
             // Tính tổng thu nhập
@@ -42,13 +43,26 @@ namespace QuanLyChiTieu.Controllers
                 .GroupBy(g => g.DanhMuc.TenDanhMuc)
                 .ToDictionary(g => g.Key, g => g.Sum(x => x.SoTien));
 
-            // 5 giao dịch gần nhất
-            var giaoDichGanNhat = _context.GiaoDichs
-                .Include(g => g.DanhMuc)
+            // Giao dịch gần nhất TRONG THÁNG ĐANG XEM (thay vì lấy 5 giao dịch gần nhất toàn hệ thống,
+            // để nhất quán với dữ liệu đang hiển thị khi người dùng chọn xem tháng cũ)
+            var giaoDichGanNhat = giaoDichThang
                 .OrderByDescending(g => g.NgayGiaoDich)
                 .ThenByDescending(g => g.NgayTao)
                 .Take(5)
                 .ToList();
+
+            // Danh sách các năm có dữ liệu để đổ vào dropdown chọn năm
+            var danhSachNam = _context.GiaoDichs
+                .Select(g => g.NgayGiaoDich.Year)
+                .Distinct()
+                .OrderByDescending(y => y)
+                .ToList();
+            if (!danhSachNam.Contains(DateTime.Now.Year))
+            {
+                danhSachNam.Insert(0, DateTime.Now.Year);
+            }
+
+            ViewBag.DanhSachNam = danhSachNam;
 
             var viewModel = new DashboardViewModel
             {
@@ -57,8 +71,8 @@ namespace QuanLyChiTieu.Controllers
                 SoDu = tongThuNhap - tongChiTieu,
                 GiaoDichGanNhat = giaoDichGanNhat,
                 ChiTieuTheoDanhMuc = chiTieuTheoDanhMuc,
-                ThangHienTai = thang,
-                NamHienTai = nam
+                ThangHienTai = thangXem,
+                NamHienTai = namXem
             };
 
             return View(viewModel);

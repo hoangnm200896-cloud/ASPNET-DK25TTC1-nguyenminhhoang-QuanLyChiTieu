@@ -1,10 +1,53 @@
 @model DashboardViewModel
 @{
     ViewData["Title"] = "Trang chủ";
+    string[] tenThang = { "", "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6",
+                           "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12" };
 }
 
 <h2><i class="fas fa-tachometer-alt"></i> Tổng quan tháng @Model.ThangHienTai/@Model.NamHienTai</h2>
 <hr />
+
+<!-- Bộ lọc theo tháng/năm -->
+<div class="card mb-3">
+    <div class="card-body">
+        <form method="get" asp-action="Index" class="form-inline">
+            <label class="mr-2"><i class="fas fa-calendar-alt"></i> Xem theo:</label>
+            <select name="thang" class="form-control mr-2 mb-2 mb-md-0">
+                @for (int i = 1; i <= 12; i++)
+                {
+                    if (i == Model.ThangHienTai)
+                    {
+                        @:<option value="@i" selected>@tenThang[i]</option>
+                    }
+                    else
+                    {
+                        @:<option value="@i">@tenThang[i]</option>
+                    }
+                }
+            </select>
+            <select name="nam" class="form-control mr-2 mb-2 mb-md-0">
+                @foreach (var nam in (List<int>)ViewBag.DanhSachNam)
+                {
+                    if (nam == Model.NamHienTai)
+                    {
+                        @:<option value="@nam" selected>Năm @nam</option>
+                    }
+                    else
+                    {
+                        @:<option value="@nam">Năm @nam</option>
+                    }
+                }
+            </select>
+            <button type="submit" class="btn btn-primary mr-2 mb-2 mb-md-0">
+                <i class="fas fa-filter"></i> Xem
+            </button>
+            <a asp-action="Index" class="btn btn-outline-secondary mb-2 mb-md-0">
+                <i class="fas fa-redo"></i> Về tháng hiện tại
+            </a>
+        </form>
+    </div>
+</div>
 
 <!-- Thẻ tổng quan -->
 <div class="row">
@@ -93,7 +136,7 @@
                 }
                 else
                 {
-                    <p class="text-muted text-center p-3">Chưa có giao dịch nào.</p>
+                    <p class="text-muted text-center p-3">Chưa có giao dịch nào trong tháng này.</p>
                 }
             </div>
             <div class="card-footer">
